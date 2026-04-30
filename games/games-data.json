@@ -1,0 +1,11 @@
+[
+    {
+        "id": "personality-quiz",
+        "title": "Personality Quiz",
+        "description": "Answer 3 questions and discover which superhero you are! Iron Man, Hulk, or Batman?",
+        "icon": "fa-user-secret",
+        "playIcon": "fa-play",
+        "playText": "Take Quiz",
+        "file": "games/personality-quiz/game.html"
+    }
+]

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Elite Club | Portfolio & Personality Quiz</title>
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400;500;600;700&family=Candal&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- PDF.js Library - For viewing PDFs in browser -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============================================ -->
+<!-- HEADER SECTION WITH LARGE CHINESE DRAGON     -->
+<!-- ============================================ -->
+<div class="upperheader">
+    <!-- Single Large Chinese Dragon that circles around the title -->
+    <div class="dragon-wrapper">
+        <div class="main-dragon" id="mainDragon">
+            <span class="dragon-head">🐲</span>
+            <span class="dragon-body dragon-segment">〰️</span>
+            <span class="dragon-body dragon-segment">🐉</span>
+            <span class="dragon-body dragon-segment">〰️</span>
+            <span class="dragon-tail">🐲</span>
+            <span class="dragon-fire">🔥</span>
+            <span class="dragon-fire">✨</span>
+        </div>
+    </div>
+    
+    <h1 id="headerTitle">[ <span>Elite Club</span> ]</h1>
+</div>
+<img class="websitebar-img" src="image/best2.jpg" alt="banner" onerror="this.src='https://picsum.photos/id/104/1600/400'">
+
+<!-- Scroll progress bar -->
+<div class="scroll-progress" id="scrollProgress"></div>
+
+
+<!-- ============================================ -->
+<!-- NAVIGATION BAR                               -->
+<!-- ============================================ -->
+<header>
+    <i class="fas fa-bars menu-toggle" id="mobileMenuBtn"></i>
+    <ul class="nav" id="navList">
+        <li><a href="#projects">PROJECTS</a></li>
+        <li><a href="#games">GAMES</a></li>
+        <li><a href="#" id="resumeNavLink">RESUME</a></li>
+        <li class="dropdown">
+            <a href="#">SUPPORT <i class="fas fa-caret-down"></i></a>
+            <div class="dropdown-content">
+                <a href="https://github.com/Kartikey077" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                <a href="#" id="contactLink"><i class="fas fa-envelope"></i> Contact</a>
+                <a href="#" id="docsLink"><i class="fas fa-file-alt"></i> Docs</a>
+            </div>
+        </li>
+</ul>
+</header>
+
+<!-- ============================================ -->
+<!-- MAIN CONTENT - Sections load here            -->
+<!-- ============================================ -->
+<main id="main-content">
+    <div class="loader-container">  
+        <div class="loader"></div>
+    </div>
+</main>
+
+<!-- ============================================ -->
+<!-- FOOTER                                       -->
+<!-- ============================================ -->
+<footer class="footer">
+    <p>© 2025 Elite Club — Portfolio | BTech Projects | Games</p>
+    <div class="social-links">
+        <a href="https://github.com/Kartikey077" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="#" id="footerContactLink"><i class="fas fa-envelope"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+    </div>
+</footer>
+
+<!-- ============================================ -->
+<!-- GAME MODAL - For Personality Quiz            -->
+<!-- ============================================ -->
+<div id="gameModal" class="game-modal">
+    <div class="game-terminal">
+        <div class="terminal-header">
+            <span><i class="fas fa-gamepad"></i> Personality Quiz</span>
+            <button class="close-game" id="closeGameBtn">&times;</button>
+        </div>
+        <div class="terminal-body" id="gameModalBody">
+            <div class="loader-container"><div class="loader"></div></div>
+        </div>
+    </div>
+</div>
+
+<!-- ============================================ -->
+<!-- CONTACT MODAL - Email Form                   -->
+<!-- ============================================ -->
+<div id="contactModal" class="contact-modal">
+    <div class="contact-content">
+        <div class="contact-header">
+            <span><i class="fas fa-envelope"></i> Contact Me</span>
+            <button class="close-modal" id="closeContactModal">&times;</button>
+        </div>
+        <div class="contact-body">
+            <form id="contactForm">
+                <div class="form-group">
+                    <label><i class="fas fa-user"></i> Your Name</label>
+                    <input type="text" id="userName" required placeholder="John Doe">
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-envelope"></i> Your Email</label>
+                    <input type="email" id="userEmail" required placeholder="john@example.com">
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-comment"></i> Message</label>
+                    <textarea id="userMessage" rows="4" required placeholder="Your message here..."></textarea>
+                </div>
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-paper-plane"></i> Send Message
+                </button>
+            </form>
+            
+            <div class="divider">OR</div>
+            
+            <div class="direct-email">
+                <span class="direct-email-label">
+                    <i class="fas fa-at"></i> Direct Email:
+                </span>
+                <br>
+                <a href="mailto:kartikeynrai@gmail.com">kartikeynrai@gmail.com</a>
+            </div>
+            
+            <div id="formSuccess" class="success-message">
+                <i class="fas fa-check-circle"></i> Message sent successfully! I'll get back to you soon.
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ============================================ -->
+<!-- RESUME MODAL - PDF Viewer with Download      -->
+<!-- ============================================ -->
+<div id="resumeModal" class="resume-modal">
+    <div class="resume-content">
+        <div class="resume-header">
+            <!-- Download Button on LEFT side -->
+            <button id="downloadResumeBtn" class="download-resume">
+                <i class="fas fa-download"></i> Download PDF
+            </button>
+            <span><i class="fas fa-file-pdf"></i> My Resume</span>
+            <!-- Close Button on RIGHT side -->
+            <button class="close-resume" id="closeResumeBtn">&times;</button>
+        </div>
+        <div class="resume-body" id="resumeBody">
+            <div class="pdf-viewer" id="pdfViewer">
+                <!-- PDF will be embedded here -->
+                <embed id="pdfEmbed" src="" type="application/pdf" width="100%" height="100%">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ============================================ -->
+<!-- DOCS MODAL - Will be loaded dynamically      -->
+<!-- ============================================ -->
+<div id="docsModal" class="docs-modal">
+    <div class="docs-content">
+        <div class="docs-header">
+            <span><i class="fas fa-file-alt"></i> Documentation</span>
+            <button class="close-modal" id="closeDocsModal">&times;</button>
+        </div>
+        <div class="docs-body" id="docsBody">
+            <!-- Content will be loaded dynamically from sections/docs.html -->
+            <div class="loader-container"><div class="loader"></div></div>
+        </div>
+    </div>
+</div>
+
+<!-- ============================================ -->
+<!-- JAVASCRIPT                                   -->
+<!-- ============================================ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="script.js"></script>
+<!-- Scroll Progress Bar Script -->
+<script>
+// Scroll progress bar
+window.addEventListener('scroll', () => {
+    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const scrolled = (winScroll / height) * 100;
+    const progressBar = document.getElementById('scrollProgress');
+    if (progressBar) {
+        progressBar.style.width = scrolled + '%';
+    }
+});
+</script>
+<!-- Dragon Animation Enhancement Script -->
+<script>
+// Additional dragon effects - title highlight when dragon passes
+const mainDragon = document.getElementById('mainDragon');
+const headerTitle = document.getElementById('headerTitle');
+
+if (mainDragon && headerTitle) {
+    // Create Chinese magic particles
+    function createMagicParticle() {
+        const magicDiv = document.createElement('div');
+        const chineseChars = ['龍', '福', '吉', '祥', '运', '财', '乐', '安'];
+        const randomChar = chineseChars[Math.floor(Math.random() * chineseChars.length)];
+        magicDiv.className = 'dragon-magic';
+        magicDiv.textContent = randomChar;
+        magicDiv.style.position = 'absolute';
+        magicDiv.style.pointerEvents = 'none';
+        magicDiv.style.zIndex = '30';
+        magicDiv.style.fontSize = (Math.random() * 20 + 15) + 'px';
+        magicDiv.style.color = ['#ffd700', '#ff9900', '#ff6600', '#ff3300'][Math.floor(Math.random() * 4)];
+        
+        // Position around the title
+        const titleRect = headerTitle.getBoundingClientRect();
+        const containerRect = document.querySelector('.upperheader').getBoundingClientRect();
+        
+        magicDiv.style.left = (titleRect.left - containerRect.left + Math.random() * titleRect.width) + 'px';
+        magicDiv.style.top = (Math.random() * 60 + 10) + 'px';
+        magicDiv.style.animation = 'magicAppear 0.6s ease-out forwards';
+        
+        document.querySelector('.upperheader').appendChild(magicDiv);
+        
+        setTimeout(() => {
+            magicDiv.remove();
+        }, 600);
+    }
+    
+    // Listen for dragon animation using IntersectionObserver or time-based
+    let lastHighlight = 0;
+    
+    // Add glow to title when dragon is near (triggered by JavaScript)
+    setInterval(() => {
+        // Simulate dragon passing effect every 10 seconds (matches animation duration)
+        const now = Date.now();
+        if (now - lastHighlight > 9800) { // Just before dragon completes circle
+            lastHighlight = now;
+            headerTitle.classList.add('title-highlight');
+            
+            // Create particles around title
+            for (let i = 0; i < 8; i++) {
+                setTimeout(() => createMagicParticle(), i * 50);
+            }
+            
+            setTimeout(() => {
+                headerTitle.classList.remove('title-highlight');
+            }, 500);
+        }
+    }, 100);
+}
+
+// Log dragon animation ready
+console.log('🐉 Large Chinese Dragon is circling the title!');
+</script>
+
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head><title>Test</title></head>
+<body>
+    <h1>Testing Sections</h1>
+    <div id="result"></div>
+    <script>
+        fetch('sections/projects.html')
+            .then(r => r.text())
+            .then(html => {
+                document.getElementById('result').innerHTML = '<p style="color:green">✅ projects.html found!</p><pre>' + html.substring(0, 200) + '</pre>';
+            })
+            .catch(e => {
+                document.getElementById('result').innerHTML = '<p style="color:red">❌ Error: ' + e.message + '</p>';
+            });
+    </script>
+</body>
+</html>

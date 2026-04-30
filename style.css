@@ -1,0 +1,1092 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #eaeced;
+    font-family: 'Lora', serif;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, .nav, .upperheader {
+    font-family: 'Kode Mono', monospace;
+}
+
+/* Header */
+.upperheader {
+    background-color: #0a0d0f;
+    color: #4169E1;
+    padding: 1.2rem 1rem;
+    text-align: center;
+    font-size: 1.6rem;
+    letter-spacing: 2px;
+    border-bottom: 2px solid #4169E1;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.upperheader span {
+    color: #eaeced;
+}
+
+/* Mobile header fix - prevents brackets from breaking */
+@media only screen and (max-width: 480px) {
+    .upperheader {
+        padding: 1rem 0.5rem;
+    }
+    
+    .upperheader h1 {
+        font-size: 1.3rem;
+        letter-spacing: 1px;
+        display: inline-block;
+    }
+}
+
+@media only screen and (max-width: 360px) {
+    .upperheader h1 {
+        font-size: 1.1rem;
+    }
+}
+
+.websitebar-img {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    display: block;
+    margin-bottom: -5px;
+}
+
+@media only screen and (max-width: 750px) {
+    .websitebar-img {
+        height: 200px;
+    }
+}
+
+/* Navbar */
+header {
+    background-color: #0a0d0f;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+header * {
+    color: white;
+}
+header .menu-toggle {
+    display: none;
+    cursor: pointer;
+    font-size: 2rem;
+    text-align: center;
+    padding: 12px 0;
+}
+header ul.nav {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    background-color: #0a0d0f;
+    text-align: center;
+    font-size: 1.3rem;
+    font-family: 'Candal', sans-serif;
+}
+header ul.nav li {
+    display: inline-block;
+    position: relative;
+}
+header ul.nav li a {
+    text-decoration: none;
+    display: block;
+    padding: 1rem 1.8rem;
+    transition: all 0.3s ease;
+}
+header ul.nav li a:hover {
+    background-color: #4169E1;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #1e1f22;
+    min-width: 180px;
+    z-index: 1;
+    border-radius: 0 0 8px 8px;
+    overflow: hidden;
+}
+.dropdown-content a {
+    color: #f0f0f0;
+    padding: 12px 20px;
+    text-align: left;
+    font-size: 1rem;
+    border-bottom: 1px solid #333;
+}
+.dropdown-content a:hover {
+    background-color: #4169E1;
+}
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Responsive Navbar */
+@media only screen and (max-width: 750px) {
+    header .menu-toggle {
+        display: block;
+    }
+    header ul.nav {
+        display: block;
+        max-height: 0px;
+        overflow: hidden;
+        transition: max-height 0.4s ease-out;
+    }
+    header ul.nav.showing {
+        max-height: 25em;
+    }
+    header ul.nav li {
+        display: block;
+        width: 100%;
+        border-top: 1px solid #25282e;
+    }
+    .dropdown-content {
+        position: static;
+        width: 100%;
+    }
+}
+
+/* Main Content */
+#main-content {
+    min-height: calc(100vh - 200px);
+}
+
+/* Loader */
+.loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
+}
+.loader {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #4169E1;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Section Styles */
+.full-section {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 4rem 2rem;
+    scroll-margin-top: 70px;
+}
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    text-align: center;
+}
+
+/* Projects Section */
+.projects-section {
+    background: linear-gradient(135deg, #101215 0%, #1a1e24 100%);
+    color: #eaeced;
+}
+.section-title {
+    margin-bottom: 50px;
+}
+.section-title h2 {
+    font-size: 2rem;
+    color: #4169E1;
+    margin-bottom: 15px;
+}
+@media only screen and (max-width: 750px) {
+    .section-title h2 {
+        font-size: 1.5rem;
+    }
+}
+.title-underline {
+    width: 80px;
+    height: 4px;
+    background-color: #4169E1;
+    margin: 0 auto;
+}
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+@media only screen and (max-width: 750px) {
+    .projects-grid {
+        grid-template-columns: 1fr;
+        padding: 10px;
+    }
+}
+.project-card {
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(4px);
+    border-radius: 32px;
+    padding: 2rem;
+    border: 1px solid rgba(65,105,225,0.4);
+    transition: transform 0.3s;
+    text-align: center;
+}
+@media only screen and (max-width: 750px) {
+    .project-card {
+        padding: 1.5rem;
+    }
+}
+.project-card:hover {
+    transform: translateY(-5px);
+}
+.project-icon {
+    font-size: 3rem;
+    color: #4169E1;
+    margin-bottom: 20px;
+}
+.project-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: white;
+}
+@media only screen and (max-width: 750px) {
+    .project-card h3 {
+        font-size: 1.3rem;
+    }
+}
+.project-subtitle {
+    color: #4169E1;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+    font-family: monospace;
+}
+.project-card p {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    color: #ccc;
+}
+@media only screen and (max-width: 750px) {
+    .project-card p {
+        font-size: 0.9rem;
+    }
+}
+.tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+.tech-badge {
+    background: #4169E1;
+    padding: 0.3rem 1rem;
+    border-radius: 40px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    font-family: monospace;
+    color: white;
+}
+
+/* Games Section */
+.games-section {
+    background: #0c0f12;
+    color: #ddd;
+}
+.games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+@media only screen and (max-width: 750px) {
+    .games-grid {
+        grid-template-columns: 1fr;
+        padding: 10px;
+    }
+}
+.game-card {
+    background: #111318;
+    border-radius: 20px;
+    padding: 30px;
+    border: 1px solid #4169E1;
+    transition: transform 0.3s;
+    cursor: pointer;
+    text-align: center;
+}
+@media only screen and (max-width: 750px) {
+    .game-card {
+        padding: 20px;
+    }
+}
+.game-card:hover {
+    transform: translateY(-5px);
+}
+.game-icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+.game-card h3 {
+    font-size: 1.5rem;
+    color: white;
+    margin-bottom: 15px;
+}
+@media only screen and (max-width: 750px) {
+    .game-card h3 {
+        font-size: 1.3rem;
+    }
+}
+.game-card p {
+    color: #bbb;
+    margin-bottom: 20px;
+}
+.play-btn {
+    background: #4169E1;
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: 'Kode Mono', monospace;
+    transition: all 0.3s;
+}
+.play-btn:hover {
+    background: #2a4bc2;
+    transform: scale(1.05);
+}
+
+/* Modal */
+.game-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+}
+.game-terminal {
+    background: #0a0c10;
+    width: 90%;
+    max-width: 700px;
+    border-radius: 20px;
+    border: 1px solid #4169E1;
+    overflow: hidden;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+.terminal-header {
+    background: #1a1d24;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #2a2d34;
+    color: #4169E1;
+    position: sticky;
+    top: 0;
+}
+.close-game {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: #ff5c5c;
+    cursor: pointer;
+}
+.terminal-body {
+    padding: 20px;
+    min-height: 400px;
+}
+
+/* Footer */
+.footer {
+    background: #0a0d0f;
+    text-align: center;
+    padding: 30px;
+    color: #888;
+}
+@media only screen and (max-width: 750px) {
+    .footer {
+        padding: 20px 15px;
+        font-size: 0.8rem;
+    }
+}
+.social-links {
+    margin-top: 15px;
+}
+.social-links a {
+    color: #888;
+    margin: 0 10px;
+    font-size: 1.3rem;
+    transition: color 0.3s;
+}
+.social-links a:hover {
+    color: #4169E1;
+}
+
+/* Project Links & Buttons */
+.project-links {
+    margin: 20px 0 15px 0;
+}
+
+.project-github-link {
+    display: inline-block;
+    background: #24292e;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    text-decoration: none;
+    font-family: 'Kode Mono', monospace;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.project-github-link:hover {
+    background: #4169E1;
+    transform: translateY(-2px);
+}
+/* Add these styles to your existing style.css file */
+
+/* ============================================ */
+/* MODAL STYLES - Contact, Docs, Resume         */
+/* ============================================ */
+.contact-modal, .docs-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 2001;
+    justify-content: center;
+    align-items: center;
+}
+
+.contact-modal.active, .docs-modal.active {
+    display: flex;
+}
+
+.contact-content, .docs-content {
+    background: #0a0c10;
+    width: 90%;
+    max-width: 500px;
+    border-radius: 20px;
+    border: 1px solid #4169E1;
+    overflow: hidden;
+}
+
+.contact-header, .docs-header {
+    background: #1a1d24;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #2a2d34;
+    color: #4169E1;
+}
+
+.close-modal {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: #ff5c5c;
+    cursor: pointer;
+}
+
+.contact-body, .docs-body {
+    padding: 30px;
+}
+
+/* Form Styles */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #eaeced;
+    font-family: 'Kode Mono', monospace;
+    font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    background: #1a1d24;
+    border: 1px solid #4169E1;
+    border-radius: 8px;
+    color: white;
+    font-family: 'Lora', serif;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #2a4bc2;
+}
+
+.submit-btn {
+    background: #4169E1;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-family: 'Kode Mono', monospace;
+    width: 100%;
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+.submit-btn:hover {
+    background: #2a4bc2;
+    transform: scale(1.02);
+}
+
+.divider {
+    text-align: center;
+    margin: 20px 0;
+    position: relative;
+    color: #888;
+}
+
+.divider::before,
+.divider::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 45%;
+    height: 1px;
+    background: #333;
+}
+
+.divider::before {
+    left: 0;
+}
+
+.divider::after {
+    right: 0;
+}
+
+.success-message {
+    background: #0f9d58;
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 15px;
+    text-align: center;
+    display: none;
+}
+
+.direct-email {
+    text-align: center;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #333;
+}
+
+.direct-email-label {
+    display: block;
+    font-size: 0.85rem;
+    color: #aaa;
+    margin-bottom: 8px;
+    font-family: 'Kode Mono', monospace;
+}
+
+.direct-email a {
+    color: #4169E1;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: bold;
+    background: rgba(65, 105, 225, 0.1);
+    padding: 8px 15px;
+    border-radius: 25px;
+    display: inline-block;
+    transition: all 0.3s;
+}
+
+.direct-email a:hover {
+    background: rgba(65, 105, 225, 0.2);
+    transform: scale(1.02);
+    color: #6b8cff;
+}
+
+/* ============================================ */
+/* RESUME MODAL STYLES - PDF Viewer            */
+/* ============================================ */
+.resume-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 2002;
+    justify-content: center;
+    align-items: center;
+}
+
+.resume-modal.active {
+    display: flex;
+}
+
+.resume-content {
+    background: #0a0c10;
+    width: 90%;
+    max-width: 900px;
+    height: 85vh;
+    border-radius: 20px;
+    border: 1px solid #4169E1;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.resume-header {
+    background: #1a1d24;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #2a2d34;
+    color: #4169E1;
+}
+
+/* Download button on left side */
+.download-resume {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-family: 'Kode Mono', monospace;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.download-resume:hover {
+    background: #218838;
+    transform: scale(1.02);
+}
+
+/* Close button on right side */
+.close-resume {
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: #ff5c5c;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.close-resume:hover {
+    transform: scale(1.1);
+}
+
+.resume-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+    background: #1a1d24;
+}
+
+/* PDF Viewer Container */
+.pdf-viewer {
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.pdf-viewer iframe,
+.pdf-viewer embed {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+/* ============================================ */
+/* SINGLE LARGE CHINESE DRAGON IN HEADER        */
+/* ============================================ */
+
+/* Header container for dragon animation */
+.upperheader {
+    background-color: #0a0d0f;
+    color: #4169E1;
+    padding: 1.2rem 1rem;
+    text-align: center;
+    font-size: 1.6rem;
+    letter-spacing: 2px;
+    border-bottom: 2px solid #4169E1;
+    overflow-x: hidden;
+    white-space: nowrap;
+    position: relative;
+    min-height: 90px;
+}
+
+/* Large Dragon Container */
+.dragon-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 20;
+    overflow: visible;
+}
+
+/* Main Dragon */
+.main-dragon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 3.5rem;
+    filter: drop-shadow(0 0 8px #ffd700) drop-shadow(0 0 3px #ff6600);
+    animation: flyAcross 8s ease-in-out infinite;
+    white-space: nowrap;
+    z-index: 25;
+    pointer-events: none;
+}
+
+/* Dragon body parts for longer dragon */
+.main-dragon span {
+    display: inline-block;
+    animation: wiggle 0.3s ease-in-out infinite;
+}
+
+.dragon-head {
+    font-size: 3.8rem;
+    display: inline-block;
+    filter: drop-shadow(0 0 5px #ff9900);
+}
+
+.dragon-body {
+    font-size: 3.2rem;
+    margin: 0 -8px;
+    display: inline-block;
+}
+
+.dragon-tail {
+    font-size: 2.8rem;
+    display: inline-block;
+    filter: drop-shadow(0 0 3px #ff6600);
+}
+
+/* Different segments of the dragon */
+.dragon-segment {
+    display: inline-block;
+    animation: segmentWave 0.4s ease-in-out infinite alternate;
+}
+
+/* Fire trail effect */
+.dragon-fire {
+    font-size: 2.5rem;
+    display: inline-block;
+    margin-left: 5px;
+    animation: fireFlicker 0.15s steps(3) infinite;
+    opacity: 0.8;
+}
+
+/* Keyframe for dragon flying across with circle around title */
+@keyframes flyAcross {
+    0% {
+        left: -100px;
+        transform: translateY(-50%) scaleX(1);
+    }
+    35% {
+        left: 35%;
+        transform: translateY(-50%) scaleX(1);
+    }
+    38% {
+        transform: translateY(-50%) scaleX(1) rotate(5deg);
+    }
+    42% {
+        transform: translateY(-50%) scaleX(1) rotate(-5deg);
+    }
+    45% {
+        transform: translateY(-50%) scaleX(1) rotate(0deg);
+    }
+    48% {
+        transform: translateY(-80%) scaleX(1) scale(1.1);
+    }
+    50% {
+        left: 50%;
+        transform: translateY(-120%) scaleX(1) scale(1.2);
+    }
+    52% {
+        transform: translateY(-80%) scaleX(1) scale(1.1);
+    }
+    55% {
+        transform: translateY(-50%) scaleX(1) rotate(0deg);
+    }
+    58% {
+        transform: translateY(-50%) scaleX(1) rotate(5deg);
+    }
+    62% {
+        transform: translateY(-50%) scaleX(1) rotate(-5deg);
+    }
+    65% {
+        left: 65%;
+        transform: translateY(-50%) scaleX(1);
+    }
+    100% {
+        left: calc(100% + 100px);
+        transform: translateY(-50%) scaleX(1);
+    }
+}
+
+/* Dragon wiggle animation for body segments */
+@keyframes wiggle {
+    0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-3px) rotate(2deg);
+    }
+}
+
+/* Segment wave animation */
+@keyframes segmentWave {
+    0% {
+        transform: translateY(0px) scaleY(1);
+    }
+    100% {
+        transform: translateY(-4px) scaleY(1.05);
+    }
+}
+
+/* Fire flicker animation */
+@keyframes fireFlicker {
+    0% {
+        opacity: 0.6;
+        transform: scale(0.9);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+    100% {
+        opacity: 0.6;
+        transform: scale(0.9);
+    }
+}
+
+/* Dragon glow effect */
+@keyframes dragonGlow {
+    0%, 100% {
+        text-shadow: 0 0 5px #ffd700, 0 0 10px #ff6600;
+    }
+    50% {
+        text-shadow: 0 0 15px #ff9900, 0 0 20px #ff3300;
+    }
+}
+
+.main-dragon {
+    animation: flyAcross 10s ease-in-out infinite;
+    text-shadow: 0 0 5px #ffd700;
+}
+
+/* Pause dragon animation on hover - optional */
+.upperheader:hover .main-dragon {
+    animation-play-state: paused;
+}
+
+/* Responsive dragon size */
+@media only screen and (max-width: 750px) {
+    .main-dragon {
+        font-size: 2.5rem;
+    }
+    
+    .dragon-head {
+        font-size: 2.8rem;
+    }
+    
+    .dragon-body {
+        font-size: 2.2rem;
+    }
+    
+    .dragon-tail {
+        font-size: 2rem;
+    }
+    
+    .dragon-fire {
+        font-size: 1.8rem;
+    }
+    
+    .upperheader {
+        min-height: 70px;
+        padding: 0.8rem 0.5rem;
+    }
+    
+    .upperheader h1 {
+        font-size: 1.2rem;
+    }
+    
+    @keyframes flyAcross {
+        0% {
+            left: -80px;
+        }
+        100% {
+            left: calc(100% + 80px);
+        }
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .main-dragon {
+        font-size: 1.8rem;
+    }
+    
+    .dragon-head {
+        font-size: 2rem;
+    }
+    
+    .dragon-body {
+        font-size: 1.6rem;
+    }
+    
+    .dragon-tail {
+        font-size: 1.4rem;
+    }
+    
+    .dragon-fire {
+        font-size: 1.3rem;
+    }
+}
+
+/* Chinese characters that appear around title when dragon passes */
+.dragon-magic {
+    position: absolute;
+    font-size: 1rem;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 30;
+}
+
+@keyframes magicAppear {
+    0% {
+        opacity: 0;
+        transform: scale(0);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.2);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0);
+    }
+}
+
+/* Title highlight when dragon passes */
+@keyframes titleHighlight {
+    0% {
+        text-shadow: none;
+        color: #eaeced;
+    }
+    50% {
+        text-shadow: 0 0 20px #ffd700, 0 0 10px #ff6600;
+        color: #ffd700;
+    }
+    100% {
+        text-shadow: none;
+        color: #eaeced;
+    }
+}
+
+.title-highlight {
+    animation: titleHighlight 0.5s ease-in-out;
+}
+
+/* ============================================ */
+/* SMOOTH SCROLL BEHAVIOR                       */
+/* ============================================ */
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* Custom smooth scroll with longer duration */
+.smooth-scroll {
+    scroll-behavior: smooth;
+}
+
+/* Scroll indicator for better UX */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background: #4169E1;
+    z-index: 10000;
+    transition: width 0.1s ease;
+}
+
+/* Mobile Responsive */
+@media only screen and (max-width: 750px) {
+    .resume-content {
+        width: 95%;
+        height: 80vh;
+    }
+    
+    .download-resume {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+    
+    .contact-body, .docs-body {
+        padding: 20px;
+    }
+}
+@media only screen and (max-width: 750px) {
+    .project-github-link {
+        display: block;
+        text-align: center;
+    }
+}
+
+/* Section spacing */
+.section-title {
+    margin-bottom: 40px;
+}
+
+.section-title:not(:first-of-type) {
+    margin-top: 60px;
+}
+
+@media only screen and (max-width: 750px) {
+    .section-title:not(:first-of-type) {
+        margin-top: 40px;
+    }
+    
+    .full-section {
+        padding: 2rem 1rem;
+    }
+}
