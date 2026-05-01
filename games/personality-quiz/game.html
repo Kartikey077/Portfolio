@@ -5,37 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="game.css">
-    <style>
-        .loading-console {
-            font-family: 'Courier New', monospace;
-            background: #0a0c10;
-            color: #0f0;
-            padding: 20px;
-            border-radius: 8px;
-        }
-        .console-output {
-            background: #000;
-            color: #0f0;
-            padding: 15px;
-            font-family: 'Courier New', monospace;
-            white-space: pre-wrap;
-            border-left: 3px solid #4169E1;
-        }
-        .api-status {
-            font-size: 0.8rem;
-            padding: 5px;
-            background: #1a1a1a;
-            color: #ffa500;
-            border-radius: 4px;
-            margin-bottom: 10px;
-        }
-    </style>
 </head>
 <body>
     <div class="quiz-container">
         <div class="quiz-header">
             <i class="fas fa-terminal"></i>
-            <h2>🐍 Python Console Quiz</h2>
+            <h2>🐍 Personality Quiz Game</h2>
             <div class="api-status" id="apiStatus">
                 <i class="fas fa-circle-notch fa-spin"></i> Connecting to Python Backend...
             </div>
@@ -47,6 +22,6 @@
         </div>
         <div id="result"></div>
     </div>
-    <script src="game.js"></script>
+    <!-- No script tag here - it's loaded dynamically -->
 </body>
 </html>

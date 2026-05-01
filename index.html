@@ -84,14 +84,15 @@
 <!-- ============================================ -->
 <!-- GAME MODAL - For Personality Quiz            -->
 <!-- ============================================ -->
-<div id="gameModal" class="game-modal">
-    <div class="game-terminal">
-        <div class="terminal-header">
-            <span><i class="fas fa-gamepad"></i> Personality Quiz</span>
-            <button class="close-game" id="closeGameBtn">&times;</button>
+<!-- Game Modal -->
+<div id="gameModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 id="modalGameTitle">Game</h2>
+            <span id="closeGameBtn" class="close">&times;</span>
         </div>
-        <div class="terminal-body" id="gameModalBody">
-            <div class="loader-container"><div class="loader"></div></div>
+        <div id="gameModalBody" class="modal-body">
+            <!-- Game content loads here -->
         </div>
     </div>
 </div>

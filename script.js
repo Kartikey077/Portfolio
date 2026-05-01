@@ -98,12 +98,22 @@ async function loadDocsContent() {
 // ============================================
 // GAME MODAL
 // ============================================
+// Store loaded game resources to clean up later
+let currentGameScript = null;
+let currentGameStylesheet = null;
+let isGameLoading = false;
 
 /**
  * Loads and displays a game in the modal
  * @param {string} gameId - ID of the game to load (e.g., 'personality-quiz')
  */
 window.loadGame = async function(gameId) {
+    // Prevent multiple simultaneous loads
+    if (isGameLoading) {
+        console.log('Game already loading, please wait...');
+        return;
+    }
+    
     const modal = document.getElementById('gameModal');
     const modalBody = document.getElementById('gameModalBody');
     const closeBtn = document.getElementById('closeGameBtn');
@@ -112,6 +122,11 @@ window.loadGame = async function(gameId) {
         console.error('Modal elements not found');
         return;
     }
+    
+    isGameLoading = true;
+    
+    // Clean up any existing game resources first
+    cleanupGame();
     
     // Show loader
     modalBody.innerHTML = '<div class="loader-container"><div class="loader"></div></div>';
@@ -124,25 +139,43 @@ window.loadGame = async function(gameId) {
         const html = await response.text();
         modalBody.innerHTML = html;
         
-        // Load game CSS
-        const existingCss = document.querySelector(`link[href="games/${gameId}/game.css"]`);
-        if (!existingCss) {
-            const link = document.createElement('link');
-            link.rel = 'stylesheet';
-            link.href = `games/${gameId}/game.css`;
-            document.head.appendChild(link);
-        }
+        // Remove any existing game CSS with same ID
+        const existingCss = document.querySelector(`link#game-css-${gameId}`);
+        if (existingCss) existingCss.remove();
         
-        // Remove existing game script to avoid duplicates
-        const existingScript = document.querySelector(`script[src="games/${gameId}/game.js"]`);
+        // Load game CSS
+        const cssLink = document.createElement('link');
+        cssLink.rel = 'stylesheet';
+        cssLink.href = `games/${gameId}/game.css`;
+        cssLink.id = `game-css-${gameId}`;
+        document.head.appendChild(cssLink);
+        currentGameStylesheet = cssLink;
+        
+        // Remove any existing game script
+        const existingScript = document.querySelector(`script#game-js-${gameId}`);
         if (existingScript) {
             existingScript.remove();
         }
         
-        // Load game JavaScript
+        // Load game JavaScript - use a unique ID and ensure it's only loaded once
         const script = document.createElement('script');
         script.src = `games/${gameId}/game.js`;
+        script.id = `game-js-${gameId}`;
+        script.onload = () => {
+            console.log('Game loaded successfully');
+            isGameLoading = false;
+            
+            // Initialize the game if it has an init function
+            if (window.initGame) {
+                window.initGame();
+            }
+        };
+        script.onerror = () => {
+            console.error('Failed to load game script');
+            isGameLoading = false;
+        };
         document.body.appendChild(script);
+        currentGameScript = script;
         
     } catch (error) {
         console.error('Error loading game:', error);
@@ -152,24 +185,118 @@ window.loadGame = async function(gameId) {
                 <p>Error loading game: ${error.message}</p>
             </div>
         `;
+        isGameLoading = false;
     }
     
-    // Close button handler
+    // Setup close handlers
+    setupCloseHandlers(modal);
+};
+
+/**
+ * Sets up close handlers for the modal
+ */
+function setupCloseHandlers(modal) {
+    const closeBtn = document.getElementById('closeGameBtn');
+    
+    // Remove old close button handler by cloning
     if (closeBtn) {
-        closeBtn.onclick = () => {
-            modal.style.display = 'none';
-            document.body.style.overflow = '';
+        const newCloseBtn = closeBtn.cloneNode(true);
+        if (closeBtn.parentNode) {
+            closeBtn.parentNode.replaceChild(newCloseBtn, closeBtn);
+        }
+        
+        newCloseBtn.onclick = () => {
+            closeGameModal(modal);
         };
     }
     
     // Click outside to close
-    window.onclick = (e) => {
+    const outsideClickHandler = (e) => {
         if (e.target === modal) {
-            modal.style.display = 'none';
-            document.body.style.overflow = '';
+            closeGameModal(modal);
         }
     };
-};
+    
+    // Remove previous handler if exists
+    window.removeEventListener('click', window._outsideClickHandler);
+    window._outsideClickHandler = outsideClickHandler;
+    window.addEventListener('click', window._outsideClickHandler);
+}
+
+/**
+ * Properly closes the game modal and cleans up resources
+ */
+function closeGameModal(modal) {
+    if (!modal) {
+        modal = document.getElementById('gameModal');
+    }
+    
+    // Clean up game resources
+    cleanupGame();
+    
+    // Hide modal
+    if (modal) {
+        modal.style.display = 'none';
+    }
+    document.body.style.overflow = '';
+    
+    // Clear modal content
+    const modalBody = document.getElementById('gameModalBody');
+    if (modalBody) {
+        modalBody.innerHTML = '';
+    }
+    
+    // Remove outside click handler
+    if (window._outsideClickHandler) {
+        window.removeEventListener('click', window._outsideClickHandler);
+        window._outsideClickHandler = null;
+    }
+    
+    // Reset loading flag
+    isGameLoading = false;
+}
+
+/**
+ * Clean up game CSS, JS, and any global variables/event listeners
+ */
+function cleanupGame() {
+    // Remove game CSS
+    const gameStylesheets = document.querySelectorAll('link[id^="game-css-"]');
+    gameStylesheets.forEach(el => el.remove());
+    
+    // Remove game scripts
+    const gameScripts = document.querySelectorAll('script[id^="game-js-"]');
+    gameScripts.forEach(el => {
+        // Disable any ongoing game functions
+        if (window.cleanupGameResources) {
+            window.cleanupGameResources();
+        }
+        el.remove();
+    });
+    
+    // Clear any game-specific global variables
+    const gameVariables = ['questions', 'currentIndex', 'userAnswers', 'backendAvailable', 'gameActive', 'quizTimeouts', 'gameIntervals'];
+    gameVariables.forEach(varName => {
+        if (window[varName] !== undefined) {
+            delete window[varName];
+        }
+    });
+    
+    // Clear any intervals or timeouts
+    if (window.gameTimeouts) {
+        window.gameTimeouts.forEach(timeout => clearTimeout(timeout));
+        window.gameTimeouts = null;
+    }
+    
+    if (window.gameIntervals) {
+        window.gameIntervals.forEach(interval => clearInterval(interval));
+        window.gameIntervals = null;
+    }
+    
+    // Reset current game references
+    currentGameScript = null;
+    currentGameStylesheet = null;
+}
 
 // ============================================
 // RESUME MODAL

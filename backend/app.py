@@ -1,9 +1,9 @@
-from flask import Flask, jsonify, request, render_template_string
+from flask import Flask, jsonify, request
 from flask_cors import CORS
-import json
+import os
 
 app = Flask(__name__)
-CORS(app)  # Allow frontend to call backend
+CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 # Your Python quiz logic
 questions = [
@@ -135,11 +135,26 @@ def console_style_quiz():
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)})
 
+@app.route('/api/health', methods=['GET'])
+def health_check():
+    """Health check endpoint"""
+    return jsonify({
+        'status': 'running',
+        'message': 'Personality Quiz API is active!'
+    })
+
 if __name__ == '__main__':
-    print("🎮 Personality Quiz Backend Running!")
-    print("📍 API:")
-    print("   GET  /api/quiz/questions")
-    print("   POST /api/quiz/submit")
-    print("   POST /api/quiz/console")
-    print("\n🚀 Server starting on http://localhost:5000")
+    print("\n" + "="*50)
+    print("🎮 PERSONALITY QUIZ BACKEND")
+    print("="*50)
+    print("✅ Server starting...")
+    print("📍 API Endpoints:")
+    print("   GET  http://localhost:5000/api/quiz/questions")
+    print("   POST http://localhost:5000/api/quiz/submit")
+    print("   POST http://localhost:5000/api/quiz/console")
+    print("   GET  http://localhost:5000/api/health")
+    print("\n🚀 Server running on http://localhost:5000")
+    print("⚠️  Keep this terminal window open!")
+    print("="*50 + "\n")
     
+    app.run(host='0.0.0.0', port=5000, debug=True)
