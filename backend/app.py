@@ -142,4 +142,4 @@ if __name__ == '__main__':
     print("   POST /api/quiz/submit")
     print("   POST /api/quiz/console")
     print("\n🚀 Server starting on http://localhost:5000")
-    app.run(debug=True, port=5000)
+    
