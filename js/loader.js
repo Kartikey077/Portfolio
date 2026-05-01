@@ -35,49 +35,7 @@ async function loadPage(pageName) {
     }
 }
 
-// Load game in modal
-window.loadGame = async function(gameId) {
-    const modal = document.getElementById('gameModal');
-    const modalBody = document.getElementById('gameModalBody');
-    const modalTitle = document.getElementById('modalGameTitle');
-    const closeBtn = document.getElementById('closeGameBtn');
-    
-    // Set title
-    const gamesTitles = {
-        'personality-quiz': '🎮 Personality Quiz'
-    };
-    modalTitle.textContent = gamesTitles[gameId] || 'Game';
-    
-    // Show loader
-    modalBody.innerHTML = '<div class="loader-container"><div class="loader"></div></div>';
-    modal.style.display = 'flex';
-    document.body.style.overflow = 'hidden';
-    
-    try {
-        const response = await fetch(`games/${gameId}/game.html`);
-        if (!response.ok) throw new Error('Game not found');
-        const html = await response.text();
-        modalBody.innerHTML = html;
-        
-        // Load game specific CSS
-        const existingLink = document.querySelector(`link[href="games/${gameId}/game.css"]`);
-        if (!existingLink) {
-            const link = document.createElement('link');
-            link.rel = 'stylesheet';
-            link.href = `games/${gameId}/game.css`;
-            document.head.appendChild(link);
-        }
-        
-    } catch (error) {
-        console.error('Error loading game:', error);
-        modalBody.innerHTML = `
-            <div style="text-align: center; color: #ff6b6b; padding: 40px;">
-                <i class="fas fa-exclamation-triangle" style="font-size: 3rem;"></i>
-                <p>Error loading game. Please try again.</p>
-            </div>
-        `;
-    }
-};
+
 
 // Navigation setup
 document.addEventListener('DOMContentLoaded', () => {

@@ -96,7 +96,7 @@ async function loadDocsContent() {
 }
 
 // ============================================
-// GAME MODAL
+// GAME MODAL - Updated Fixed Version
 // ============================================
 // Store loaded game resources to clean up later
 let currentGameScript = null;
@@ -116,7 +116,6 @@ window.loadGame = async function(gameId) {
     
     const modal = document.getElementById('gameModal');
     const modalBody = document.getElementById('gameModalBody');
-    const closeBtn = document.getElementById('closeGameBtn');
     
     if (!modal || !modalBody) {
         console.error('Modal elements not found');
@@ -127,6 +126,15 @@ window.loadGame = async function(gameId) {
     
     // Clean up any existing game resources first
     cleanupGame();
+    
+    // Update modal title
+    const modalTitle = document.getElementById('modalGameTitle');
+    if (modalTitle) {
+        const gameTitles = {
+            'personality-quiz': '🐍 Personality Quiz Game'
+        };
+        modalTitle.innerHTML = `<i class="fas fa-terminal"></i> ${gameTitles[gameId] || 'Game'}`;
+    }
     
     // Show loader
     modalBody.innerHTML = '<div class="loader-container"><div class="loader"></div></div>';
@@ -157,22 +165,25 @@ window.loadGame = async function(gameId) {
             existingScript.remove();
         }
         
-        // Load game JavaScript - use a unique ID and ensure it's only loaded once
+        // Load game JavaScript
         const script = document.createElement('script');
         script.src = `games/${gameId}/game.js`;
         script.id = `game-js-${gameId}`;
         script.onload = () => {
-            console.log('Game loaded successfully');
+            console.log('Game script loaded successfully');
             isGameLoading = false;
-            
-            // Initialize the game if it has an init function
-            if (window.initGame) {
-                window.initGame();
-            }
+            // Game initializes automatically via its own script
         };
         script.onerror = () => {
             console.error('Failed to load game script');
             isGameLoading = false;
+            modalBody.innerHTML = `
+                <div style="text-align: center; color: #ff6b6b; padding: 40px;">
+                    <i class="fas fa-exclamation-triangle" style="font-size: 3rem;"></i>
+                    <p>Error loading game script. Please try again.</p>
+                    <button onclick="window.closeGameModal()" style="margin-top: 20px; padding: 10px 20px; background: #667eea; border: none; border-radius: 5px; color: white; cursor: pointer;">Close</button>
+                </div>
+            `;
         };
         document.body.appendChild(script);
         currentGameScript = script;
@@ -183,6 +194,7 @@ window.loadGame = async function(gameId) {
             <div style="text-align: center; color: #ff6b6b; padding: 40px;">
                 <i class="fas fa-exclamation-triangle" style="font-size: 3rem;"></i>
                 <p>Error loading game: ${error.message}</p>
+                <button onclick="window.closeGameModal()" style="margin-top: 20px; padding: 10px 20px; background: #667eea; border: none; border-radius: 5px; color: white; cursor: pointer;">Close</button>
             </div>
         `;
         isGameLoading = false;
@@ -221,6 +233,16 @@ function setupCloseHandlers(modal) {
     window.removeEventListener('click', window._outsideClickHandler);
     window._outsideClickHandler = outsideClickHandler;
     window.addEventListener('click', window._outsideClickHandler);
+    
+    // ESC key handler
+    const escHandler = (e) => {
+        if (e.key === 'Escape' && modal && modal.style.display === 'flex') {
+            closeGameModal(modal);
+        }
+    };
+    window.removeEventListener('keydown', window._escHandler);
+    window._escHandler = escHandler;
+    window.addEventListener('keydown', window._escHandler);
 }
 
 /**
@@ -252,6 +274,12 @@ function closeGameModal(modal) {
         window._outsideClickHandler = null;
     }
     
+    // Remove ESC handler
+    if (window._escHandler) {
+        window.removeEventListener('keydown', window._escHandler);
+        window._escHandler = null;
+    }
+    
     // Reset loading flag
     isGameLoading = false;
 }
@@ -269,7 +297,9 @@ function cleanupGame() {
     gameScripts.forEach(el => {
         // Disable any ongoing game functions
         if (window.cleanupGameResources) {
-            window.cleanupGameResources();
+            try {
+                window.cleanupGameResources();
+            } catch(e) {}
         }
         el.remove();
     });
@@ -297,6 +327,9 @@ function cleanupGame() {
     currentGameScript = null;
     currentGameStylesheet = null;
 }
+
+// Make close function globally available
+window.closeGameModal = closeGameModal;
 
 // ============================================
 // RESUME MODAL
