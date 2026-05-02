@@ -158,3 +158,7 @@ if __name__ == '__main__':
     print("="*50 + "\n")
     
     app.run(host='0.0.0.0', port=5000, debug=True)
+
+@app.route('/')
+def root():
+    return jsonify({'message': 'Quiz API is running!', 'endpoints': ['/api/quiz/questions', '/api/quiz/submit', '/api/health']})
