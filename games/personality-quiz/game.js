@@ -11,7 +11,7 @@
     let gameActive = true;
     let quizFinished = false;
     
-    const API_BASE_URL = 'http://localhost:5000';
+    const API_BASE_URL = 'https://kartikey-rai-portfolio.onrender.com';
     
     function updateApiStatus(status, message) {
         const apiStatus = document.getElementById('apiStatus');
