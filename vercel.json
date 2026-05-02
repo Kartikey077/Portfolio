@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "https://kartikey-rai-portfolio.onrender.com/api/$1"
+    }
+  ]
+}
