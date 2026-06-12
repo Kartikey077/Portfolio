@@ -1,0 +1,635 @@
+<!-- sections/about.html -->
+<!-- Place this file in your /sections/ folder -->
+<a href="javascript:history.back()" class="about-back-btn">← Back</a>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Kode+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+  /* =============================================
+     ABOUT SECTION — Creamy + Forest Green Theme
+     ============================================= */
+  .about-page {
+    background: #f8f4ec;
+    min-height: 100vh;
+    padding: 0;
+    overflow-x: hidden;
+    font-family: 'Lora', Georgia, serif;
+    color: #2d3b2a;
+  }
+
+  /* ── Top hero banner ── */
+  .about-hero {
+    background: #2d3b2a;
+    color: #f8f4ec;
+    text-align: center;
+    padding: 60px 24px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .about-hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 20px,
+      rgba(255,255,255,0.02) 20px,
+      rgba(255,255,255,0.02) 40px
+    );
+  }
+
+  .about-hero-tag {
+    font-family: 'Kode Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    color: #8bc47a;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .about-hero h1 {
+    font-size: clamp(2.2rem, 6vw, 3.8rem);
+    font-weight: 600;
+    color: #f8f4ec;
+    margin: 0 0 16px;
+    line-height: 1.15;
+  }
+
+  .about-hero h1 em {
+    font-style: italic;
+    color: #8bc47a;
+  }
+
+  .about-hero p {
+    font-size: 1.05rem;
+    color: #c5d9b8;
+    max-width: 520px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  /* ── Scroll-connected dashed vine ── */
+  .vine-container {
+    position: relative;
+    padding: 0 24px;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .vine-svg {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 0;
+    width: 60px;
+    pointer-events: none;
+    z-index: 0;
+    overflow: visible;
+  }
+
+  /* ── Collage cards ── */
+  .collage-entry {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    align-items: center;
+    padding: 70px 0;
+    border-bottom: none;
+  }
+
+  .collage-entry:last-child {
+    padding-bottom: 100px;
+  }
+
+  /* Alternating layout */
+  .collage-entry.flip .col-img  { order: 2; }
+  .collage-entry.flip .col-text { order: 1; }
+
+  .col-img {
+    position: relative;
+  }
+
+  .photo-frame {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 6px 8px 0 #2d3b2a;
+    border: 3px solid #2d3b2a;
+    background: #d8e8cc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 5rem;
+    color: #2d3b2a;
+    position: relative;
+  }
+
+  /* Replace the emoji with your real image:
+     <img src="image/your-photo.jpg" alt="..." class="photo-frame-img"> */
+  .photo-frame-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    inset: 0;
+  }
+
+  /* Decorative tape strips */
+  .tape {
+    position: absolute;
+    width: 60px;
+    height: 18px;
+    background: rgba(139, 196, 122, 0.55);
+    border-radius: 2px;
+    z-index: 2;
+  }
+
+  .tape.tl { top: -8px; left: 18px; transform: rotate(-3deg); }
+  .tape.tr { top: -8px; right: 18px; transform: rotate(3deg); }
+
+  /* Sticky note */
+  .sticky {
+    position: absolute;
+    bottom: -16px;
+    right: -14px;
+    background: #fef6c0;
+    border: 1px solid #e0d080;
+    padding: 8px 12px;
+    font-family: 'Kode Mono', monospace;
+    font-size: 0.72rem;
+    color: #5a4a00;
+    border-radius: 2px;
+    box-shadow: 2px 2px 0 rgba(0,0,0,0.12);
+    transform: rotate(2deg);
+    max-width: 130px;
+    line-height: 1.4;
+    z-index: 3;
+  }
+
+  /* Text column */
+  .col-text {
+    padding: 8px 16px;
+  }
+
+  .section-number {
+    font-family: 'Kode Mono', monospace;
+    font-size: 0.7rem;
+    color: #8bc47a;
+    letter-spacing: 0.18em;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .col-text h2 {
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 600;
+    color: #2d3b2a;
+    margin: 0 0 16px;
+    line-height: 1.25;
+  }
+
+  .col-text h2 em {
+    font-style: italic;
+    color: #4a7c40;
+  }
+
+  .col-text p {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #3e4e3b;
+    margin: 0 0 14px;
+  }
+
+  /* Tag chips */
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 20px;
+  }
+
+  .tag {
+    font-family: 'Kode Mono', monospace;
+    font-size: 0.72rem;
+    padding: 5px 12px;
+    border-radius: 2px;
+    border: 1.5px solid #2d3b2a;
+    color: #2d3b2a;
+    background: transparent;
+    letter-spacing: 0.06em;
+    transition: background 0.18s, color 0.18s;
+  }
+
+  .tag:hover {
+    background: #2d3b2a;
+    color: #f8f4ec;
+  }
+
+  .tag.filled {
+    background: #2d3b2a;
+    color: #f8f4ec;
+  }
+
+  /* ── Skill grid (section 3) ── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 12px;
+    margin-top: 20px;
+  }
+
+  .skill-card {
+    background: #fff;
+    border: 1.5px solid #b8d4a8;
+    border-radius: 4px;
+    padding: 14px 12px;
+    text-align: center;
+  }
+
+  .skill-card .skill-icon {
+    font-size: 1.6rem;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .skill-card .skill-name {
+    font-family: 'Kode Mono', monospace;
+    font-size: 0.7rem;
+    color: #2d3b2a;
+    display: block;
+    letter-spacing: 0.05em;
+  }
+
+  .skill-card .skill-bar-wrap {
+    margin-top: 8px;
+    height: 4px;
+    background: #e0ead8;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .skill-card .skill-bar {
+    height: 100%;
+    background: #4a7c40;
+    border-radius: 2px;
+    width: 0;
+    transition: width 1s ease;
+  }
+
+  /* ── Timeline (section 4) ── */
+  .timeline {
+    margin-top: 20px;
+    border-left: 2px dashed #8bc47a;
+    padding-left: 20px;
+  }
+
+  .tl-item {
+    position: relative;
+    margin-bottom: 22px;
+  }
+
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: -27px;
+    top: 5px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #4a7c40;
+    border: 2px solid #f8f4ec;
+    outline: 1.5px solid #4a7c40;
+  }
+
+  .tl-year {
+    font-family: 'Kode Mono', monospace;
+    font-size: 0.7rem;
+    color: #8bc47a;
+    letter-spacing: 0.12em;
+    margin-bottom: 3px;
+  }
+
+  .tl-title {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #2d3b2a;
+  }
+
+  .tl-desc {
+    font-size: 0.88rem;
+    color: #5a6b57;
+    margin-top: 2px;
+    line-height: 1.55;
+  }
+
+  /* ── Footer CTA ── */
+  .about-cta {
+    background: #2d3b2a;
+    color: #f8f4ec;
+    text-align: center;
+    padding: 60px 24px;
+  }
+
+  .about-cta p {
+    font-size: 1rem;
+    color: #c5d9b8;
+    margin-bottom: 24px;
+    font-style: italic;
+  }
+
+  .cta-btn {
+    display: inline-block;
+    padding: 12px 32px;
+    border: 2px solid #8bc47a;
+    color: #8bc47a;
+    font-family: 'Kode Mono', monospace;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    border-radius: 2px;
+    transition: background 0.2s, color 0.2s;
+    cursor: pointer;
+    background: transparent;
+  }
+
+  .cta-btn:hover {
+    background: #8bc47a;
+    color: #2d3b2a;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 680px) {
+    .collage-entry {
+      grid-template-columns: 1fr;
+      padding: 50px 0;
+    }
+
+    .collage-entry.flip .col-img,
+    .collage-entry.flip .col-text {
+      order: unset;
+    }
+
+    .vine-svg { display: none; }
+  }
+</style>
+
+<div class="about-page">
+
+  <!-- Hero Banner -->
+  <div class="about-hero">
+    <div class="about-hero-tag">[ about me ]</div>
+    <h1>Kartikey Rai —<br><em>builder, coder, dreamer.</em></h1>
+    <p>A Computer Science engineer from India who turns coffee and curiosity into working software.</p>
+  </div>
+
+  <!-- Main Collage Content -->
+  <div class="vine-container" id="vineContainer">
+
+    <!-- SVG Vine — grows as you scroll -->
+    <svg class="vine-svg" id="vinesvg" viewBox="0 0 60 3000" preserveAspectRatio="xMidYMin meet" height="3000">
+      <defs>
+        <marker id="curl" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6">
+          <circle cx="5" cy="5" r="3" fill="none" stroke="#8bc47a" stroke-width="1.5"/>
+        </marker>
+      </defs>
+      <!-- The main dashed vertical stem -->
+      <path id="vinePath"
+        d="M30,0
+           C 45,80 15,160 30,240
+           C 45,320 15,400 30,480
+           C 45,560 15,640 30,720
+           C 45,800 15,880 30,960
+           C 45,1040 15,1120 30,1200
+           C 45,1280 15,1360 30,1440
+           C 45,1520 15,1600 30,1680
+           C 45,1760 15,1840 30,1920
+           C 45,2000 15,2080 30,2160
+           C 45,2240 15,2320 30,2400
+           C 45,2480 15,2560 30,2640
+           C 45,2720 15,2800 30,2880
+           C 45,2960 15,3020 30,3000"
+        fill="none"
+        stroke="#8bc47a"
+        stroke-width="2"
+        stroke-dasharray="8 6"
+        stroke-linecap="round"
+        opacity="0.6"
+      />
+      <!-- Small leaf curls at intervals -->
+      <g fill="none" stroke="#4a7c40" stroke-width="1.2" opacity="0.5">
+        <path d="M30,120 Q55,108 48,88"/>
+        <path d="M30,240 Q5,228 12,208"/>
+        <path d="M30,360 Q55,348 48,328"/>
+        <path d="M30,480 Q5,468 12,448"/>
+        <path d="M30,600 Q55,588 48,568"/>
+        <path d="M30,720 Q5,708 12,688"/>
+        <path d="M30,840 Q55,828 48,808"/>
+        <path d="M30,960 Q5,948 12,928"/>
+        <path d="M30,1080 Q55,1068 48,1048"/>
+        <path d="M30,1200 Q5,1188 12,1168"/>
+        <path d="M30,1320 Q55,1308 48,1288"/>
+        <path d="M30,1440 Q5,1428 12,1408"/>
+      </g>
+      <!-- Small dots at each curl -->
+      <g fill="#8bc47a" opacity="0.7">
+        <circle cx="30" cy="120" r="3"/>
+        <circle cx="30" cy="240" r="3"/>
+        <circle cx="30" cy="360" r="3"/>
+        <circle cx="30" cy="480" r="3"/>
+        <circle cx="30" cy="600" r="3"/>
+        <circle cx="30" cy="720" r="3"/>
+        <circle cx="30" cy="840" r="3"/>
+        <circle cx="30" cy="960" r="3"/>
+        <circle cx="30" cy="1080" r="3"/>
+        <circle cx="30" cy="1200" r="3"/>
+      </g>
+    </svg>
+
+    <!-- ─── Entry 1: Who I Am ─── -->
+    <div class="collage-entry">
+      <div class="col-img">
+        <div class="tape tl"></div>
+        <div class="tape tr"></div>
+        <div class="photo-frame">
+          <!-- Replace with: <img src="image/your-photo.jpg" alt="Kartikey Rai" class="photo-frame-img"> -->
+          🧑‍💻
+        </div>
+        <div class="sticky">BTech CS<br>2022–2026 ✦</div>
+      </div>
+      <div class="col-text">
+        <span class="section-number">// 01</span>
+        <h2>Hey, I'm <em>Kartikey.</em></h2>
+        <p>I'm a final-year Computer Science student with a passion for turning ideas into real, working products — whether that's a web app, a game, or a backend service.</p>
+        <p>I love building things that people actually use. My code philosophy: clean, readable, and always a little ambitious.</p>
+        <div class="tag-row">
+          <span class="tag filled">BTech CSE</span>
+          <span class="tag">India</span>
+          <span class="tag">2006 born</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── Entry 2: What I Build ─── -->
+    <div class="collage-entry flip">
+      <div class="col-img">
+        <div class="tape tl"></div>
+        <div class="tape tr"></div>
+        <div class="photo-frame" style="background: #c8ddb8;">
+          <!-- Replace with a project screenshot: <img src="image/project-screenshot.jpg" alt="Projects" class="photo-frame-img"> -->
+          🛠️
+        </div>
+        <div class="sticky" style="transform: rotate(-2deg); left: -14px; right: auto;">Late nights<br>+ hot chai ☕</div>
+      </div>
+      <div class="col-text">
+        <span class="section-number">// 02</span>
+        <h2>What I <em>build.</em></h2>
+        <p>From ITIL ticketing systems to college recommendation engines — I work across the full stack. I enjoy the challenge of taking a messy problem and designing a clean solution.</p>
+        <p>I also build games for fun. There's something deeply satisfying about creating an experience from scratch.</p>
+        <div class="tag-row">
+          <span class="tag">Flask / Python</span>
+          <span class="tag">JavaScript</span>
+          <span class="tag">HTML & CSS</span>
+          <span class="tag">Game Dev</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── Entry 3: Skills ─── -->
+    <div class="collage-entry">
+      <div class="col-img">
+        <div class="tape tl"></div>
+        <div class="tape tr"></div>
+        <div class="photo-frame" style="background: #e8d4b4;">
+          <!-- Replace with: <img src="image/skills-photo.jpg" alt="Skills" class="photo-frame-img"> -->
+          📚
+        </div>
+        <div class="sticky" style="transform: rotate(1.5deg);">Still<br>learning<br>every day 🌱</div>
+      </div>
+      <div class="col-text">
+        <span class="section-number">// 03</span>
+        <h2>My <em>toolkit.</em></h2>
+        <p>I pick the right tool for the job — not just the trendy one.</p>
+        <div class="skills-grid" id="skillsGrid">
+          <div class="skill-card"><span class="skill-icon">🐍</span><span class="skill-name">Python</span><div class="skill-bar-wrap"><div class="skill-bar" data-w="88"></div></div></div>
+          <div class="skill-card"><span class="skill-icon">⚡</span><span class="skill-name">JavaScript</span><div class="skill-bar-wrap"><div class="skill-bar" data-w="82"></div></div></div>
+          <div class="skill-card"><span class="skill-icon">🎨</span><span class="skill-name">HTML/CSS</span><div class="skill-bar-wrap"><div class="skill-bar" data-w="90"></div></div></div>
+          <div class="skill-card"><span class="skill-icon">🔥</span><span class="skill-name">Flask</span><div class="skill-bar-wrap"><div class="skill-bar" data-w="78"></div></div></div>
+          <div class="skill-card"><span class="skill-icon">🗄️</span><span class="skill-name">SQL</span><div class="skill-bar-wrap"><div class="skill-bar" data-w="72"></div></div></div>
+          <div class="skill-card"><span class="skill-icon">🎮</span><span class="skill-name">Game Dev</span><div class="skill-bar-wrap"><div class="skill-bar" data-w="70"></div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── Entry 4: Journey ─── -->
+    <div class="collage-entry flip">
+      <div class="col-img">
+        <div class="tape tl"></div>
+        <div class="tape tr"></div>
+        <div class="photo-frame" style="background: #b8cfd4;">
+          <!-- Replace with: <img src="image/journey-photo.jpg" alt="Journey" class="photo-frame-img"> -->
+          🗺️
+        </div>
+        <div class="sticky" style="transform: rotate(-1deg); left: -14px; right: auto;">Chapter 1<br>of many 📖</div>
+      </div>
+      <div class="col-text">
+        <span class="section-number">// 04</span>
+        <h2>The <em>journey.</em></h2>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-year">2022</div>
+            <div class="tl-title">Started BTech in Computer Science</div>
+            <div class="tl-desc">Dived into algorithms, data structures, and fell in love with building.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-year">2023</div>
+            <div class="tl-title">Built first full-stack web app</div>
+            <div class="tl-desc">ITIL Ticketing System — my first real project that solved a real problem.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-year">2024</div>
+            <div class="tl-title">College Recommendation System</div>
+            <div class="tl-desc">ML-powered recommendation engine to help students pick the right college.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-year">2025 →</div>
+            <div class="tl-title">Elite Club Portfolio launch</div>
+            <div class="tl-desc">Putting it all together — projects, games, and this site.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /vine-container -->
+
+  <!-- CTA Footer -->
+  <div class="about-cta">
+    <p>"The best way to predict the future is to build it."</p>
+    <button class="cta-btn" onclick="document.getElementById('contactLink')?.click()">
+      [ get in touch ]
+    </button>
+  </div>
+
+</div><!-- /about-page -->
+
+<script>
+(function() {
+  /* ── Vine scroll animation ── */
+  const vine = document.getElementById('vinePath');
+  const container = document.getElementById('vineContainer');
+
+  if (vine && container) {
+    const totalLength = vine.getTotalLength();
+    vine.style.strokeDasharray = totalLength;
+    vine.style.strokeDashoffset = totalLength;
+
+    function drawVine() {
+      const rect = container.getBoundingClientRect();
+      const scrolled = -rect.top;
+      const total = container.scrollHeight - window.innerHeight;
+      const progress = Math.min(Math.max(scrolled / total, 0), 1);
+      vine.style.strokeDashoffset = totalLength * (1 - progress);
+    }
+
+    window.addEventListener('scroll', drawVine, { passive: true });
+    drawVine();
+  }
+
+  /* ── Skill bars animate when visible ── */
+  const bars = document.querySelectorAll('.skill-bar');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const bar = entry.target;
+        bar.style.width = bar.dataset.w + '%';
+        observer.unobserve(bar);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  bars.forEach(b => observer.observe(b));
+
+  /* ── Collage entries fade-in on scroll ── */
+  const entries = document.querySelectorAll('.collage-entry');
+  entries.forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+  });
+
+  const entryObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+        entryObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  entries.forEach(el => entryObserver.observe(el));
+})();
+</script>

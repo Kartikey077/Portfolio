@@ -16,84 +16,25 @@ const RESUME_PDF_PATH = "Kartikey_Rai_Resume.pdf";  // CHANGE THIS to your PDF p
  */
 async function loadAllSections() {
     const mainContent = document.getElementById('main-content');
-    
     if (!mainContent) return;
-    
-    // Show loader
+
     mainContent.innerHTML = '<div class="loader-container"><div class="loader"></div></div>';
-    
+
     try {
-        // Fetch both sections simultaneously
         const [projectsHtml, gamesHtml] = await Promise.all([
-            fetch('sections/projects.html').then(response => {
-                if (!response.ok) throw new Error('Projects section not found');
-                return response.text();
-            }),
-            fetch('sections/games.html').then(response => {
-                if (!response.ok) throw new Error('Games section not found');
-                return response.text();
-            })
+            fetch('sections/projects.html').then(r => { if (!r.ok) throw new Error('Projects not found'); return r.text(); }),
+            fetch('sections/games.html').then(r => { if (!r.ok) throw new Error('Games not found'); return r.text(); })
         ]);
-        
-        // Combine both sections on the same page
         mainContent.innerHTML = projectsHtml + gamesHtml;
-        
-        // Update active state in navigation
-        document.querySelectorAll('.nav li a[data-page]').forEach(link => {
-            link.style.backgroundColor = '';
-        });
-        
+        document.querySelectorAll('.nav li a[data-page]').forEach(link => link.style.backgroundColor = '');
     } catch (error) {
-        console.error('Error loading sections:', error);
-        mainContent.innerHTML = `
-            <div class="loader-container">
-                <div style="text-align: center; color: #ff6b6b; padding: 40px;">
-                    <i class="fas fa-exclamation-triangle" style="font-size: 3rem;"></i>
-                    <p>Error loading content. Please refresh the page.</p>
-                    <p style="font-size: 14px; margin-top: 10px;">${error.message}</p>
-                </div>
-            </div>
-        `;
+        mainContent.innerHTML = `<div class="loader-container"><div style="text-align:center;color:#ff6b6b;padding:40px;">
+            <i class="fas fa-exclamation-triangle" style="font-size:3rem;"></i>
+            <p>Error loading content. Please refresh.</p><p style="font-size:14px">${error.message}</p>
+        </div></div>`;
     }
 }
 
-/**
- * Loads the documentation modal content
- */
-async function loadDocsContent() {
-    const docsBody = document.getElementById('docsBody');
-    if (!docsBody) return;
-    
-    docsBody.innerHTML = '<div class="loader-container"><div class="loader"></div></div>';
-    
-    try {
-        const response = await fetch('sections/docs.html');
-        if (!response.ok) throw new Error('Docs section not found');
-        const html = await response.text();
-        docsBody.innerHTML = html;
-    } catch (error) {
-        console.error('Error loading docs:', error);
-        docsBody.innerHTML = `
-            <div class="docs-placeholder">
-                <i class="fas fa-code-branch"></i>
-                <h3>📚 Project Documentation</h3>
-                <p>Complete documentation for all projects including:</p>
-                <ul style="text-align: left; margin: 20px auto; max-width: 300px; color: #ccc;">
-                    <li>📖 ITIL Ticketing System User Guide</li>
-                    <li>🎓 College Recommendation System Manual</li>
-                    <li>🔧 Installation & Setup Instructions</li>
-                    <li>🐛 Troubleshooting Guide</li>
-                </ul>
-                <div class="coming-soon">
-                    <i class="fas fa-clock"></i> Coming Soon
-                </div>
-                <p style="margin-top: 20px; font-size: 0.9rem; color: #888;">
-                    Documentation is being prepared. Contact me for immediate assistance.
-                </p>
-            </div>
-        `;
-    }
-}
 
 // ============================================
 // GAME MODAL - Updated Fixed Version
@@ -403,27 +344,7 @@ function closeContactModal() {
     document.body.style.overflow = '';
 }
 
-/**
- * Opens the documentation modal
- */
-async function openDocsModal(e) {
-    if (e) e.preventDefault();
-    const modal = document.getElementById('docsModal');
-    if (modal) {
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-        await loadDocsContent();
-    }
-}
 
-/**
- * Closes the documentation modal
- */
-function closeDocsModal() {
-    const modal = document.getElementById('docsModal');
-    if (modal) modal.classList.remove('active');
-    document.body.style.overflow = '';
-}
 
 // ============================================
 // CONTACT FORM SUBMISSION
@@ -635,7 +556,6 @@ $(document).ready(function() {
     const downloadResumeBtn = document.getElementById('downloadResumeBtn');
     const contactLink = document.getElementById('contactLink');
     const footerContactLink = document.getElementById('footerContactLink');
-    const docsLink = document.getElementById('docsLink');
     const closeContactBtn = document.getElementById('closeContactModal');
     const closeDocsBtn = document.getElementById('closeDocsModal');
     
@@ -644,18 +564,15 @@ $(document).ready(function() {
     if (downloadResumeBtn) downloadResumeBtn.addEventListener('click', downloadResume);
     if (contactLink) contactLink.addEventListener('click', openContactModal);
     if (footerContactLink) footerContactLink.addEventListener('click', openContactModal);
-    if (docsLink) docsLink.addEventListener('click', openDocsModal);
     if (closeContactBtn) closeContactBtn.addEventListener('click', closeContactModal);
     if (closeDocsBtn) closeDocsBtn.addEventListener('click', closeDocsModal);
     
     // Close modals when clicking outside
     window.addEventListener('click', (e) => {
         const contactModal = document.getElementById('contactModal');
-        const docsModal = document.getElementById('docsModal');
         const resumeModal = document.getElementById('resumeModal');
         
         if (e.target === contactModal) closeContactModal();
-        if (e.target === docsModal) closeDocsModal();
         if (e.target === resumeModal) closeResumeModal();
     });
     
