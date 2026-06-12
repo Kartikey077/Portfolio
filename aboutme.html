@@ -78,15 +78,16 @@
   }
 
   .vine-svg {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    top: 0;
-    width: 60px;
-    pointer-events: none;
-    z-index: 0;
-    overflow: visible;
-  }
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 0;
+  width: 60px;
+  height: 110%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: visible;
+}
 
   /* ── Collage cards ── */
   .collage-entry {
@@ -468,7 +469,7 @@
         <div class="tag-row">
           <span class="tag filled">BTech CSE</span>
           <span class="tag">India</span>
-          <span class="tag">2006 born</span>
+          <span class="tag">2005 born</span>
         </div>
       </div>
     </div>
@@ -544,18 +545,19 @@
             <div class="tl-title">Started BTech in Computer Science</div>
             <div class="tl-desc">Dived into algorithms, data structures, and fell in love with building.</div>
           </div>
-          <div class="tl-item">
-            <div class="tl-year">2023</div>
-            <div class="tl-title">Built first full-stack web app</div>
-            <div class="tl-desc">ITIL Ticketing System — my first real project that solved a real problem.</div>
-          </div>
+          
           <div class="tl-item">
             <div class="tl-year">2024</div>
             <div class="tl-title">College Recommendation System</div>
             <div class="tl-desc">ML-powered recommendation engine to help students pick the right college.</div>
           </div>
           <div class="tl-item">
-            <div class="tl-year">2025 →</div>
+            <div class="tl-year">2025</div>
+            <div class="tl-title">Built first full-stack web app</div>
+            <div class="tl-desc">ITIL Ticketing System — my first real project that solved a real problem.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-year">2026 →</div>
             <div class="tl-title">Elite Club Portfolio launch</div>
             <div class="tl-desc">Putting it all together — projects, games, and this site.</div>
           </div>
@@ -568,9 +570,7 @@
   <!-- CTA Footer -->
   <div class="about-cta">
     <p>"The best way to predict the future is to build it."</p>
-    <button class="cta-btn" onclick="document.getElementById('contactLink')?.click()">
-      [ get in touch ]
-    </button>
+    <a href="index.html" class="cta-btn">← back to portfolio</a>
   </div>
 
 </div><!-- /about-page -->
