@@ -1196,3 +1196,210 @@ html {
         height: 35px;
     }
 }
+/* ============================================ */
+/* UPDATED PROJECT CARDS WITH IMAGE             */
+/* ============================================ */
+
+/* Override old full-section min-height for projects to be compact */
+.projects-section {
+    min-height: auto !important;
+    padding: 4rem 2rem 3rem;
+}
+
+/* Two-column grid that stacks on mobile */
+.projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+}
+@media only screen and (max-width: 900px) {
+    .projects-grid {
+        grid-template-columns: 1fr;
+        max-width: 520px;
+        margin: 0 auto;
+    }
+}
+
+/* Card reset for new image-top style */
+.project-card {
+    padding: 0;
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+/* Image area */
+.project-card-image {
+    position: relative;
+    width: 100%;
+    height: 190px;
+    overflow: hidden;
+    background: #1a1e24;
+}
+.project-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+.project-card:hover .project-card-image img {
+    transform: scale(1.05);
+}
+
+/* Year badge overlay on image */
+.project-year-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    background: rgba(65,105,225,0.9);
+    color: #fff;
+    font-size: 0.72rem;
+    font-family: 'Kode Mono', monospace;
+    padding: 4px 10px;
+    border-radius: 30px;
+    letter-spacing: 0.5px;
+    backdrop-filter: blur(4px);
+}
+
+/* Card body */
+.project-card-body {
+    padding: 1.4rem 1.4rem 1.6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+}
+
+.project-icon-small {
+    font-size: 1.5rem;
+}
+
+.project-card-body h3 {
+    font-size: 1.2rem;
+    color: #fff;
+    margin: 0;
+    line-height: 1.3;
+}
+
+.project-short {
+    font-size: 0.9rem !important;
+    color: #aaa !important;
+    line-height: 1.55;
+    margin: 0 !important;
+}
+
+/* GitHub link button */
+.project-github-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: auto;
+    padding: 8px 20px;
+    background: transparent;
+    border: 1.5px solid #4169E1;
+    color: #4169E1 !important;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-family: 'Kode Mono', monospace;
+    text-decoration: none;
+    transition: all 0.3s;
+    width: fit-content;
+}
+.project-github-link:hover {
+    background: #4169E1;
+    color: #fff !important;
+}
+
+/* ============================================ */
+/* SOCIAL / CONNECT SECTION                     */
+/* ============================================ */
+
+.social-section {
+    background: linear-gradient(135deg, #0c0f12 0%, #101520 100%);
+    color: #eaeced;
+    min-height: auto !important;
+    padding: 4rem 2rem 5rem;
+}
+
+.social-tagline {
+    color: #888;
+    margin-bottom: 3rem;
+    font-size: 1rem;
+}
+
+.social-cards-row {
+    display: flex;
+    justify-content: center;
+    gap: 28px;
+    flex-wrap: wrap;
+}
+
+.social-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 180px;
+    padding: 2rem 1rem;
+    border-radius: 20px;
+    text-decoration: none;
+    border: 1px solid rgba(65,105,225,0.3);
+    background: rgba(255,255,255,0.04);
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    cursor: pointer;
+}
+.social-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 32px rgba(65,105,225,0.25);
+    border-color: rgba(65,105,225,0.8);
+}
+
+.social-card-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    transition: background 0.3s;
+}
+
+.github-card .social-card-icon  { background: rgba(255,255,255,0.08); color: #eaeced; }
+.linkedin-card .social-card-icon { background: rgba(10,102,194,0.2); color: #0a66c2; }
+.email-card .social-card-icon    { background: rgba(65,105,225,0.15); color: #4169E1; }
+
+.github-card:hover .social-card-icon  { background: rgba(255,255,255,0.18); }
+.linkedin-card:hover .social-card-icon { background: rgba(10,102,194,0.35); }
+.email-card:hover .social-card-icon    { background: rgba(65,105,225,0.3); }
+
+.social-card-label {
+    font-family: 'Kode Mono', monospace;
+    font-size: 0.95rem;
+    color: #eaeced;
+    font-weight: 600;
+}
+.social-card-sub {
+    font-size: 0.75rem;
+    color: #666;
+    text-align: center;
+}
+
+@media only screen and (max-width: 600px) {
+    .social-cards-row {
+        gap: 16px;
+    }
+    .social-card {
+        width: 140px;
+        padding: 1.5rem 0.8rem;
+    }
+}
+
+/* Footer simplify */
+.footer {
+    text-align: center;
+    padding: 1.5rem;
+}

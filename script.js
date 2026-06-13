@@ -21,11 +21,16 @@ async function loadAllSections() {
     mainContent.innerHTML = '<div class="loader-container"><div class="loader"></div></div>';
 
     try {
-        const [projectsHtml, gamesHtml] = await Promise.all([
+        const [projectsHtml, gamesHtml, socialHtml] = await Promise.all([
             fetch('sections/projects.html').then(r => { if (!r.ok) throw new Error('Projects not found'); return r.text(); }),
-            fetch('sections/games.html').then(r => { if (!r.ok) throw new Error('Games not found'); return r.text(); })
+            fetch('sections/games.html').then(r => { if (!r.ok) throw new Error('Games not found'); return r.text(); }),
+            fetch('sections/social.html').then(r => { if (!r.ok) throw new Error('Social not found'); return r.text(); })
         ]);
-        mainContent.innerHTML = projectsHtml + gamesHtml;
+        mainContent.innerHTML = projectsHtml + gamesHtml + socialHtml;
+
+        // Wire up social contact link after content loads
+        const socialContactLink = document.getElementById('socialContactLink');
+        if (socialContactLink) socialContactLink.addEventListener('click', openContactModal);
         document.querySelectorAll('.nav li a[data-page]').forEach(link => link.style.backgroundColor = '');
     } catch (error) {
         mainContent.innerHTML = `<div class="loader-container"><div style="text-align:center;color:#ff6b6b;padding:40px;">
@@ -481,7 +486,7 @@ function setupSmoothScroll() {
  * Adds scroll event listener for active section highlighting
  */
 function setupScrollSpy() {
-    const sections = document.querySelectorAll('.projects-section, .games-section');
+    const sections = document.querySelectorAll('.projects-section, .games-section, .social-section');
     const navLinks = document.querySelectorAll('.nav li a');
     
     if (sections.length === 0) return;
@@ -499,6 +504,8 @@ function setupScrollSpy() {
                     current = '#projects';
                 } else if (section.classList.contains('games-section')) {
                     current = '#games';
+                } else if (section.classList.contains('social-section')) {
+                    current = '#connect';
                 }
             }
         });
@@ -564,6 +571,8 @@ $(document).ready(function() {
     if (downloadResumeBtn) downloadResumeBtn.addEventListener('click', downloadResume);
     if (contactLink) contactLink.addEventListener('click', openContactModal);
     if (footerContactLink) footerContactLink.addEventListener('click', openContactModal);
+    const socialContactLink = document.getElementById('socialContactLink');
+    if (socialContactLink) socialContactLink.addEventListener('click', openContactModal);
     if (closeContactBtn) closeContactBtn.addEventListener('click', closeContactModal);
     if (closeDocsBtn) closeDocsBtn.addEventListener('click', closeDocsModal);
     
